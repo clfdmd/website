@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { motion, useInView } from 'framer-motion';
 import Navbar from '../../components/feature/Navbar';
 import Footer from '../../components/feature/Footer';
@@ -6,7 +6,21 @@ import Footer from '../../components/feature/Footer';
 // Image Carousel Component
 const ImageCarousel = ({ images }: { images: string[] }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const intervalRef = useRef<number | null>(null);
 
+  const startAutoPlay = () => {
+    stopAutoPlay();
+    intervalRef.current = window.setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % images.length);
+    }, 1500);
+  };
+
+  const stopAutoPlay = () => {
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+      intervalRef.current = null;
+    }
+  };
   const nextSlide = () => {
     setCurrentIndex((prev) => (prev + 1) % images.length);
   };
@@ -16,7 +30,11 @@ const ImageCarousel = ({ images }: { images: string[] }) => {
   };
 
   return (
-    <div className="relative w-full aspect-[4/3] rounded-lg overflow-hidden mb-4 group">
+    <div
+      className="relative w-full aspect-[4/3] rounded-lg overflow-hidden mb-4 group"
+      onMouseEnter={startAutoPlay}
+      onMouseLeave={stopAutoPlay}
+    >
       <img
         src={images[currentIndex]}
         alt="Event"
@@ -25,12 +43,14 @@ const ImageCarousel = ({ images }: { images: string[] }) => {
       {images.length > 1 && (
         <>
           <button
+            onMouseEnter={stopAutoPlay}
             onClick={(e) => { e.stopPropagation(); prevSlide(); }}
             className="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center bg-black/50 rounded-full text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 cursor-pointer"
           >
             <i className="ri-arrow-left-s-line text-lg"></i>
           </button>
           <button
+            onMouseEnter={stopAutoPlay}
             onClick={(e) => { e.stopPropagation(); nextSlide(); }}
             className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center bg-black/50 rounded-full text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 cursor-pointer"
           >
@@ -39,8 +59,9 @@ const ImageCarousel = ({ images }: { images: string[] }) => {
           <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1.5">
             {images.map((_, idx) => (
               <button
-                key={idx}
-                onClick={(e) => { e.stopPropagation(); setCurrentIndex(idx); }}
+              key={idx}
+              onMouseEnter={stopAutoPlay}
+              onClick={(e) => { e.stopPropagation(); setCurrentIndex(idx); }}
                 className={`w-2 h-2 rounded-full transition-all duration-300 cursor-pointer ${
                   idx === currentIndex ? 'bg-white w-4' : 'bg-white/50'
                 }`}
@@ -53,10 +74,52 @@ const ImageCarousel = ({ images }: { images: string[] }) => {
   );
 };
 
+// Video Modal Component
+const VideoModal = ({
+  videoUrl,
+  onClose,
+}: {
+  videoUrl: string;
+  onClose: () => void;
+}) => {
+  return (
+    <div
+      className="fixed inset-0 z-[999] bg-black/80 flex items-center justify-center"
+      onClick={onClose}
+    >
+      <div
+        className="w-[90vw] max-w-4xl aspect-video bg-black rounded-xl overflow-hidden"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <video
+          src={videoUrl}
+          controls
+          autoPlay
+          className="w-full h-full"
+        />
+      </div>
+    </div>
+  );
+};
+
 // Compact Image Carousel for timeline items
 const CompactImageCarousel = ({ images }: { images: string[] }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const intervalRef = useRef<number | null>(null);
 
+  const startAutoPlay = () => {
+    stopAutoPlay();
+    intervalRef.current = window.setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % images.length);
+    }, 1500);
+  };
+
+  const stopAutoPlay = () => {
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+      intervalRef.current = null;
+    }
+  };
   const nextSlide = () => {
     setCurrentIndex((prev) => (prev + 1) % images.length);
   };
@@ -66,7 +129,11 @@ const CompactImageCarousel = ({ images }: { images: string[] }) => {
   };
 
   return (
-    <div className="relative w-full aspect-[4/3] rounded-lg overflow-hidden group">
+      <div
+        className="relative w-full aspect-[4/3] rounded-lg overflow-hidden group"
+        onMouseEnter={startAutoPlay}
+        onMouseLeave={stopAutoPlay}
+      >
       <img
         src={images[currentIndex]}
         alt="Event"
@@ -75,14 +142,16 @@ const CompactImageCarousel = ({ images }: { images: string[] }) => {
       {images.length > 1 && (
         <>
           <button
+            onMouseEnter={stopAutoPlay}
             onClick={(e) => { e.stopPropagation(); prevSlide(); }}
-            className="absolute left-2 top-1/2 -translate-y-1/2 w-6 h-6 flex items-center justify-center bg-black/50 rounded-full text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 cursor-pointer"
+            className="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center bg-black/50 rounded-full text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 cursor-pointer"
           >
             <i className="ri-arrow-left-s-line text-sm"></i>
           </button>
           <button
+            onMouseEnter={stopAutoPlay}
             onClick={(e) => { e.stopPropagation(); nextSlide(); }}
-            className="absolute right-2 top-1/2 -translate-y-1/2 w-6 h-6 flex items-center justify-center bg-black/50 rounded-full text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 cursor-pointer"
+            className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center bg-black/50 rounded-full text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 cursor-pointer"
           >
             <i className="ri-arrow-right-s-line text-sm"></i>
           </button>
@@ -90,6 +159,7 @@ const CompactImageCarousel = ({ images }: { images: string[] }) => {
             {images.map((_, idx) => (
               <button
                 key={idx}
+                onMouseEnter={stopAutoPlay}
                 onClick={(e) => { e.stopPropagation(); setCurrentIndex(idx); }}
                 className={`w-1.5 h-1.5 rounded-full transition-all duration-300 cursor-pointer ${
                   idx === currentIndex ? 'bg-white w-3' : 'bg-white/50'
@@ -155,8 +225,8 @@ const LargeScaleEvents = () => {
       icon: 'ri-global-line',
       images: [
         'https://res.cloudinary.com/dxny54aw4/image/upload/v1771159712/BRF1_mtvfsh.jpg',
-        'https://res.cloudinary.com/dxny54aw4/image/upload/v1771159712/BRF2_zpubmr.jpg',
         'https://res.cloudinary.com/dxny54aw4/image/upload/v1771159712/BRF3_hih3a4.jpg',
+        'https://res.cloudinary.com/dxny54aw4/image/upload/v1771159712/BRF2_zpubmr.jpg',
       ],
     },
     {
@@ -164,29 +234,26 @@ const LargeScaleEvents = () => {
       role: 'EVS Operator',
       icon: 'ri-football-line',
       images: [
-        'https://static.readdy.ai/image/2413583ecb10b63895c6cd538f0c90e1/70789a70d3ff9d07c9df9335d14c5496.jpeg',
-        'https://readdy.ai/api/search-image?query=Sports%20broadcast%20control%20room%20with%20EVS%20replay%20system%20multiple%20monitors%20showing%20football%20match%20from%20different%20angles%20operators%20working%20professional%20equipment&width=800&height=600&seq=csl2&orientation=landscape',
-        'https://readdy.ai/api/search-image?query=Beijing%20Workers%20Stadium%20aerial%20view%20night%20football%20match%20with%20illuminated%20pitch%20packed%20stands%20professional%20sports%20photography&width=800&height=600&seq=csl3&orientation=landscape',
-      ],
+        'https://res.cloudinary.com/dxny54aw4/image/upload/v1771159713/CSL1_hdgxog.jpg',
+        'https://res.cloudinary.com/dxny54aw4/image/upload/v1771159713/CSL2_hsmlpz.jpg',
+        ],
     },
     {
       title: 'Beijing Youth Championships',
       role: 'Camera Operator',
       icon: 'ri-camera-line',
       images: [
-        'https://static.readdy.ai/image/2413583ecb10b63895c6cd538f0c90e1/0da8c6a0c6cebbd9a552b8e9620b4ecc.jpeg',
-        'https://readdy.ai/api/search-image?query=Figure%20skating%20performance%20on%20ice%20rink%20elegant%20athlete%20with%20spotlight%20professional%20sports%20photography%20broadcast%20quality%20image&width=800&height=600&seq=byc2&orientation=landscape',
-        'https://readdy.ai/api/search-image?query=Archery%20competition%20athlete%20aiming%20bow%20and%20arrow%20professional%20sports%20event%20with%20targets%20in%20background%20dramatic%20lighting&width=800&height=600&seq=byc3&orientation=landscape',
-      ],
+        'https://res.cloudinary.com/dxny54aw4/image/upload/v1771159712/BYC1_sr5nta.jpg',
+        'https://res.cloudinary.com/dxny54aw4/image/upload/v1771159714/BYC2_hrcwse.jpg',
+        ],
     },
     {
       title: 'Yiche European Cup All-Star Match',
       role: 'Live Technical Support & Subtitle Operator',
       icon: 'ri-tv-line',
       images: [
-        'https://static.readdy.ai/image/2413583ecb10b63895c6cd538f0c90e1/ac2f641737761ae79bce4443f2eb94c0.jpeg',
-        'https://readdy.ai/api/search-image?query=Broadcast%20subtitle%20operator%20workstation%20with%20character%20generator%20system%20multiple%20monitors%20showing%20live%20feed%20professional%20broadcast%20environment&width=800&height=600&seq=yec2&orientation=landscape',
-        'https://readdy.ai/api/search-image?query=Sports%20talk%20show%20studio%20set%20with%20European%20football%20theme%20decorations%20professional%20broadcast%20lighting%20modern%20design&width=800&height=600&seq=yec3&orientation=landscape',
+        'https://res.cloudinary.com/dxny54aw4/image/upload/v1771159714/YICHE1_gbpims.jpg',
+        'https://res.cloudinary.com/dxny54aw4/image/upload/v1771159714/YICHE2_pyl0wp.jpg',
       ],
     },
     {
@@ -194,9 +261,10 @@ const LargeScaleEvents = () => {
       role: 'Technical Director',
       icon: 'ri-music-line',
       images: [
-        'https://static.readdy.ai/image/2413583ecb10b63895c6cd538f0c90e1/9897fdce1547d4e44f8f39494113287a.jpeg',
-        'https://readdy.ai/api/search-image?query=Concert%20technical%20director%20booth%20with%20mixing%20console%20and%20multiple%20monitors%20showing%20stage%20views%20professional%20live%20event%20production&width=800&height=600&seq=lpm2&orientation=landscape',
-        'https://readdy.ai/api/search-image?query=Pop%20singer%20performing%20on%20stage%20with%20colorful%20stage%20lights%20and%20smoke%20effects%20large%20LED%20backdrop%20concert%20atmosphere&width=800&height=600&seq=lpm3&orientation=landscape',
+        'https://res.cloudinary.com/dxny54aw4/image/upload/v1771159713/LON1_heww4a.jpg',
+        'https://res.cloudinary.com/dxny54aw4/image/upload/v1771159713/LON2_b6xyeo.jpg',
+        'https://res.cloudinary.com/dxny54aw4/image/upload/v1771159714/LON4_cbbssr.jpg',
+        'https://res.cloudinary.com/dxny54aw4/image/upload/v1771159713/LON3_lddyad.jpg',
       ],
     },
     {
@@ -204,9 +272,9 @@ const LargeScaleEvents = () => {
       role: 'Subtitle Operator',
       icon: 'ri-film-line',
       images: [
-        'https://readdy.ai/api/search-image?query=Beijing%20International%20Film%20Festival%20red%20carpet%20ceremony%20with%20celebrities%20and%20photographers%20elegant%20venue%20with%20festival%20branding%20professional%20event%20photography&width=800&height=600&seq=biff1&orientation=landscape',
-        'https://readdy.ai/api/search-image?query=Film%20festival%20award%20ceremony%20stage%20with%20presenters%20and%20winners%20elegant%20backdrop%20design%20professional%20broadcast%20lighting%20cinematic%20atmosphere&width=800&height=600&seq=biff2&orientation=landscape',
-        'https://readdy.ai/api/search-image?query=Broadcast%20subtitle%20control%20room%20with%20operator%20working%20on%20character%20generator%20multiple%20screens%20showing%20live%20event%20feed%20professional%20equipment&width=800&height=600&seq=biff3&orientation=landscape',
+        'https://res.cloudinary.com/dxny54aw4/image/upload/v1771159711/BIF1_wprfnb.jpg',
+        'https://res.cloudinary.com/dxny54aw4/image/upload/v1771159711/BIF2_mvyons.jpg',
+        'https://res.cloudinary.com/dxny54aw4/image/upload/v1771159711/BIF3_xbo7b6.jpg',
       ],
     },
   ];
@@ -249,71 +317,102 @@ const LargeScaleEvents = () => {
 const CampusLeadership = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, amount: 0.1 });
+  const [activeVideo, setActiveVideo] = useState<string | null>(null);
 
   const highlightedRole = {
     year: '2024-2025',
     role: 'Deputy Director of CUCTVOB',
     event: 'Communication University of China Television Outside Broadcast',
-    image: 'https://static.readdy.ai/image/2413583ecb10b63895c6cd538f0c90e1/e9e0cba6a5bb48484b546766efa6c940.jpeg',
+    image: 'https://res.cloudinary.com/dxny54aw4/image/upload/v1771242573/2DD_rlu0td.jpg',
   };
 
   const timeline = [
     {
+      role: 'Producer',
+      event: 'CUC 42nd Sports Meeting',
+      images: [
+        'https://res.cloudinary.com/dxny54aw4/image/upload/v1771159718/2XYH1_ehjv94.jpg',
+        'https://res.cloudinary.com/dxny54aw4/image/upload/v1771159718/2XYH3_h42gq5.jpg',
+        'https://res.cloudinary.com/dxny54aw4/image/upload/v1771159718/2XYH2_k0w2v9.jpg',
+      ],
+    },
+    {
+      role: 'Live Director',
+      event: 'CUC Choral Competition & May Fourth Commendation Ceremony',
+      images: [
+        'https://res.cloudinary.com/dxny54aw4/image/upload/v1771159717/2HC1_pjoqid.jpg',
+        'https://res.cloudinary.com/dxny54aw4/image/upload/v1771159717/2HC2_ystknj.jpg',
+        'https://res.cloudinary.com/dxny54aw4/image/upload/v1771159717/2HC3_jnxs7w.jpg',
+      ],
+      hasVideo: true,
+      videoUrl: 'https://res.cloudinary.com/dxny54aw4/video/upload/v1771415040/hechang_lgx835.mp4',
+    },
+    {
+      role: 'Assistant Director',
+      event: '20th “Star of Elegance” talent selection events',
+      images: [
+        'https://res.cloudinary.com/dxny54aw4/image/upload/v1771306974/FC1_yrpaws.jpg',
+        'https://res.cloudinary.com/dxny54aw4/image/upload/v1771306970/FC2_o6n84w.jpg',
+        'https://res.cloudinary.com/dxny54aw4/image/upload/v1771307209/FC3_fj5cac.jpg',
+      ],
+      hasVideo: true,
+      videoUrl: 'https://res.cloudinary.com/dxny54aw4/video/upload/v1771396518/fakelove_iae47l.mp4',
+    },
+    {
       role: 'Video Technical Director & Camera Operator',
       event: 'CUC 70th Anniversary "Piano Lake Night" Concert',
       images: [
-        'https://readdy.ai/api/search-image?query=University%20anniversary%20outdoor%20concert%20by%20lake%20at%20night%20with%20stage%20lighting%20reflections%20on%20water%20elegant%20celebration%20event&width=800&height=600&seq=piano1&orientation=landscape',
-        'https://readdy.ai/api/search-image?query=Outdoor%20concert%20stage%20setup%20with%20professional%20lighting%20and%20LED%20screens%20lakeside%20venue%20evening%20atmosphere&width=800&height=600&seq=piano2&orientation=landscape',
-        'https://readdy.ai/api/search-image?query=Camera%20operator%20filming%20outdoor%20concert%20performance%20professional%20broadcast%20camera%20on%20tripod%20night%20event&width=800&height=600&seq=piano3&orientation=landscape',
+        'https://res.cloudinary.com/dxny54aw4/image/upload/v1771159716/2GQH1_zodkyk.jpg',
+        'https://res.cloudinary.com/dxny54aw4/image/upload/v1771233378/2GQH4_vfftmz.jpg',
+        'https://res.cloudinary.com/dxny54aw4/image/upload/v1771159716/2GQH3_mgxt4u.jpg',
       ],
     },
     {
       role: 'Subtitle Director',
       event: '40th Guangyuan Spring Campus Singer Contest',
       images: [
-        'https://readdy.ai/api/search-image?query=University%20singing%20competition%20stage%20with%20performer%20and%20colorful%20lighting%20effects%20audience%20in%20auditorium%20professional%20event&width=800&height=600&seq=singer1&orientation=landscape',
-        'https://readdy.ai/api/search-image?query=Campus%20talent%20show%20stage%20design%20with%20LED%20backdrop%20showing%20graphics%20professional%20lighting%20modern%20auditorium&width=800&height=600&seq=singer2&orientation=landscape',
-        'https://readdy.ai/api/search-image?query=Broadcast%20control%20room%20during%20live%20event%20operators%20at%20workstations%20multiple%20monitors%20showing%20stage%20performance&width=800&height=600&seq=singer3&orientation=landscape',
+        'https://res.cloudinary.com/dxny54aw4/image/upload/v1771159715/2GC1_ca0uxh.jpg',
+        'https://res.cloudinary.com/dxny54aw4/image/upload/v1771159716/2GC2_quomfr.jpg',
+        'https://res.cloudinary.com/dxny54aw4/image/upload/v1771159716/2GC3_l1d0ai.jpg',
       ],
       hasVideo: true,
-    },
-    {
-      role: 'Live Director',
-      event: 'CUC Choral Competition & May Fourth Commendation Ceremony',
-      images: [
-        'https://readdy.ai/api/search-image?query=University%20choir%20performance%20on%20stage%20with%20students%20in%20formal%20attire%20elegant%20auditorium%20professional%20lighting&width=800&height=600&seq=choir1&orientation=landscape',
-        'https://readdy.ai/api/search-image?query=Award%20ceremony%20stage%20with%20presenters%20and%20recipients%20university%20event%20formal%20setting%20professional%20broadcast&width=800&height=600&seq=choir2&orientation=landscape',
-        'https://readdy.ai/api/search-image?query=Live%20broadcast%20director%20at%20control%20desk%20calling%20shots%20multiple%20camera%20feeds%20on%20monitors%20professional%20production&width=800&height=600&seq=choir3&orientation=landscape',
-      ],
-      hasVideo: true,
-    },
-    {
-      role: 'Producer',
-      event: 'CUC 42nd Sports Meeting',
-      images: [
-        'https://readdy.ai/api/search-image?query=University%20sports%20day%20opening%20ceremony%20with%20athletes%20marching%20on%20track%20field%20colorful%20flags%20and%20banners%20sunny%20day&width=800&height=600&seq=sports1&orientation=landscape',
-        'https://readdy.ai/api/search-image?query=Track%20and%20field%20competition%20athletes%20running%20race%20university%20stadium%20professional%20sports%20photography&width=800&height=600&seq=sports2&orientation=landscape',
-        'https://readdy.ai/api/search-image?query=Broadcast%20production%20team%20at%20outdoor%20sports%20event%20cameras%20and%20equipment%20setup%20stadium%20venue&width=800&height=600&seq=sports3&orientation=landscape',
-      ],
     },
     {
       role: 'Subtitle Director & Visual Design Director',
       event: '35th Guangyuan Cup Football Tournament',
       images: [
-        'https://readdy.ai/api/search-image?query=University%20football%20match%20on%20grass%20field%20students%20playing%20soccer%20sunny%20day%20campus%20sports%20atmosphere&width=800&height=600&seq=football1&orientation=landscape',
-        'https://readdy.ai/api/search-image?query=Football%20match%20broadcast%20with%20scoreboard%20graphics%20overlay%20professional%20sports%20production%20quality&width=800&height=600&seq=football2&orientation=landscape',
-        'https://readdy.ai/api/search-image?query=Sports%20broadcast%20graphics%20operator%20workstation%20with%20character%20generator%20showing%20match%20statistics&width=800&height=600&seq=football3&orientation=landscape',
+        'https://res.cloudinary.com/dxny54aw4/image/upload/v1771234364/2GYB3_c22wv2.jpg',
+        'https://res.cloudinary.com/dxny54aw4/image/upload/v1771159716/2GYB1_d3ggts.jpg',
+        'https://res.cloudinary.com/dxny54aw4/image/upload/v1771159718/2GYB2_l2lrj6.jpg',
+      ],
+    },
+    {
+      role: 'Video Technical Director',
+      event: '2025 Communication University of China New Year Concert',
+      images: [
+        'https://res.cloudinary.com/dxny54aw4/image/upload/v1771306973/XN1_yjnkdb.jpg',
+        'https://res.cloudinary.com/dxny54aw4/image/upload/v1771306969/XN2_eb7xej.jpg',
+        'https://res.cloudinary.com/dxny54aw4/image/upload/v1771306969/XN3_vp7tzp.jpg',
       ],
     },
     {
       role: 'Video Technical Director',
       event: '20th "Banxia Memorial" Student Film Festival Awards',
       images: [
-        'https://readdy.ai/api/search-image?query=Film%20festival%20awards%20ceremony%20stage%20with%20elegant%20backdrop%20design%20presenters%20at%20podium%20professional%20event%20lighting&width=800&height=600&seq=banxia1&orientation=landscape',
-        'https://readdy.ai/api/search-image?query=Student%20filmmakers%20receiving%20awards%20on%20stage%20celebration%20moment%20university%20auditorium%20professional%20photography&width=800&height=600&seq=banxia2&orientation=landscape',
-        'https://readdy.ai/api/search-image?query=Award%20ceremony%20video%20playback%20system%20showing%20film%20clips%20on%20large%20screen%20professional%20event%20production&width=800&height=600&seq=banxia3&orientation=landscape',
+        'https://res.cloudinary.com/dxny54aw4/image/upload/v1771159714/2BX2_o1qt7x.jpg',
+        'https://res.cloudinary.com/dxny54aw4/image/upload/v1771159714/2BX1_acbd9e.jpg',
+        'https://res.cloudinary.com/dxny54aw4/image/upload/v1771159714/2BX3_askewy.jpg',
       ],
-    }
+    },
+    {
+      role: 'Live Director',
+      event: '2024 Animation & Digital Arts Opening Ceremony and Graduation Ceremony',
+      images: [
+        'https://res.cloudinary.com/dxny54aw4/image/upload/v1771317083/DY3_x24upd.jpg',
+        'https://res.cloudinary.com/dxny54aw4/image/upload/v1771306969/DY1_igbr8q.jpg',
+        'https://res.cloudinary.com/dxny54aw4/image/upload/v1771306969/DY2_k4pxga.jpg',
+      ],
+    },
   ];
 
   return (
@@ -370,13 +469,21 @@ const CampusLeadership = () => {
               className="bg-[#1A1A1A] rounded-xl border border-white/10 hover:border-[#E8B4B8]/30 transition-all duration-300 overflow-hidden"
             >
               <div className="flex flex-col">
-                <CompactImageCarousel images={item.images} />
+                <div>
+                  <CompactImageCarousel images={item.images} />
+                </div>
                 <div className="p-4">
                   <div className="flex items-center gap-2 mb-2">
-                    {item.hasVideo && (
-                      <span className="px-2 py-0.5 bg-red-500/20 text-red-400 text-xs rounded-full flex items-center gap-1">
-                        <i className="ri-video-line text-xs"></i> Video
-                      </span>
+                    {item.hasVideo && item.videoUrl && (
+                      <button
+                        onClick={() => setActiveVideo(item.videoUrl)}
+                        className="px-3 py-1 bg-red-500 text-white text-xs font-bold rounded-full
+                                  rounded-full flex items-center gap-1 animate-pulse
+                                  shadow-lg shadow-red-500/40
+                                  hover:scale-105 transition cursor-pointer"
+                      >
+                        <i className="ri-play-circle-fill text-sm"></i> VIDEO
+                      </button>
                     )}
                   </div>
                   <h3 className="text-sm font-bold text-white mb-1">{item.event}</h3>
@@ -387,6 +494,12 @@ const CampusLeadership = () => {
           ))}
         </div>
       </div>
+      {activeVideo && (
+        <VideoModal
+          videoUrl={activeVideo}
+          onClose={() => setActiveVideo(null)}
+        />
+      )}
     </section>
   );
 };
@@ -396,9 +509,9 @@ const TeachingSection = () => {
   const isInView = useInView(ref, { once: true, amount: 0.3 });
 
   const teachingImages = [
-    'https://readdy.ai/api/search-image?query=University%20instructor%20teaching%20broadcast%20technology%20to%20students%20in%20modern%20classroom%20with%20equipment%20demonstration%20professional%20training%20session&width=800&height=600&seq=teach1&orientation=landscape',
-    'https://readdy.ai/api/search-image?query=Students%20learning%20video%20production%20in%20broadcast%20studio%20hands%20on%20training%20with%20cameras%20and%20equipment%20educational%20environment&width=800&height=600&seq=teach2&orientation=landscape',
-    'https://readdy.ai/api/search-image?query=Broadcast%20technology%20workshop%20with%20young%20professionals%20learning%20control%20room%20operations%20multiple%20monitors%20training%20session&width=800&height=600&seq=teach3&orientation=landscape',
+    'https://res.cloudinary.com/dxny54aw4/image/upload/v1771159719/teach2_es2myb.png',
+    'https://res.cloudinary.com/dxny54aw4/image/upload/v1771232873/teach4_qjf8mk.jpg',
+    'https://res.cloudinary.com/dxny54aw4/image/upload/v1771232872/teach5_gjb1i0.jpg',
   ];
 
   return (
@@ -433,7 +546,7 @@ const TeachingSection = () => {
                   Lead Instructor for Video Technology Training
                 </h3>
                 <div className="text-[#E8B4B8] text-lg font-medium mb-4">
-                  CUCTVOB
+                  CUCTVOB, 2023 & 2024 & 2025
                 </div>
               </div>
             </div>

@@ -20,7 +20,7 @@ const ProjectDetailPage = () => {
   }
 
   // 默认展示的媒体数量（可根据需要调整）
-  const mediaItems = project.content.images || [];
+  //const mediaItems = project.content.images || [];
 
   return (
     <motion.div
@@ -78,31 +78,21 @@ const ProjectDetailPage = () => {
               
               {/* Overview 介绍文字 */}
               <div className="space-y-6 text-[#2D2D2D] leading-relaxed">
-                {project.content.overview && (
-                  <p className="text-base">{project.content.overview}</p>
-                )}
-                
-                {project.content.challenge && (
-                  <div>
-                    <h3 className="text-xl font-semibold text-[#0A0A0A] mb-2">Challenge</h3>
-                    <p className="text-base">{project.content.challenge}</p>
-                  </div>
-                )}
-                
-                {project.content.solution && (
-                  <div>
-                    <h3 className="text-xl font-semibold text-[#0A0A0A] mb-2">Solution</h3>
-                    <p className="text-base">{project.content.solution}</p>
-                  </div>
-                )}
+                {project?.content?.overview &&
+                  project.content.overview
+                    .split(/\n\s*\n/)   // 👈 按“空行”拆段
+                    .map((text, idx) => (
+                      <p key={idx} className="text-base">
+                        {text.trim()}
+                      </p>
+                    ))}
               </div>
-            </div>
-
+        </div>
             {/* 图片/视频区域 */}
             <div className="space-y-8 pt-6">
-              {mediaItems.map((image: string, index: number) => (
-                <div 
-                  key={index} 
+              {project.content.images?.map((image: string, index: number) => (
+                <div
+                  key={index}
                   className="rounded-[15px] overflow-hidden bg-[#F5F5F5]"
                 >
                   <img
@@ -112,20 +102,25 @@ const ProjectDetailPage = () => {
                   />
                 </div>
               ))}
-
-              {/* 视频占位区域（如果有视频链接） */}
-              {project.content.video && (
-                <div className="rounded-[15px] overflow-hidden aspect-video bg-[#F5F5F5]">
-                  <iframe
-                    src={project.content.video}
-                    title="Project video"
-                    className="w-full h-full"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                  ></iframe>
+                </div>
+                
+              {/* 视频区域（保持原始比例） */}
+              {project.content.video?.length > 0 && (
+                <div className="space-y-8">
+                  {project.content.video.map((videoSrc: string, index: number) => (
+                    <div
+                      key={index}
+                      className="rounded-[15px] overflow-hidden bg-[#F5F5F5]"
+                    >
+                      <video
+                        src={videoSrc}
+                        controls
+                        className="w-full h-auto"
+                      />
+                    </div>
+                  ))}
                 </div>
               )}
-            </div>
 
             {/* 返回按钮 */}
             <div className="pt-12 border-t border-[#F5F5F5] text-center">

@@ -50,9 +50,11 @@ const HomePage = () => {
         style={{ opacity: heroOpacity }}
       >
         {/* 液体背景 */}
+        
         <div className="absolute inset-0" style={{ pointerEvents: 'all' }}>
           <LiquidBackground mouseForce={25} />
         </div>
+        
 
         {/* 暗色叠加层增强对比度 */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/40" />
@@ -134,7 +136,7 @@ const HomePage = () => {
               <div className="relative">
                 <div className="absolute -top-6 -left-6 w-full h-full border-2 border-[#E8B4B8] rounded-[30px]" />
                 <img
-                  src="https://static.readdy.ai/image/2413583ecb10b63895c6cd538f0c90e1/fe9c8ae07dae11aaee0eaaba2c91cac9.jpeg"
+                  src="https://res.cloudinary.com/dxny54aw4/image/upload/v1771315307/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20260214192128_10_302_fndz6o.jpg"
                   alt="Portrait"
                   className="w-full h-auto rounded-[30px] object-contain shadow-2xl relative z-10"
                 />
@@ -186,7 +188,7 @@ const HomePage = () => {
                 key={categoryIndex}
                 initial={{ opacity: 0, y: 30 }}
                 animate={section2InView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.6, delay: categoryIndex * 0.15 }}
+                transition={{ duration: 0.3, delay: categoryIndex * 0.01 }}
                 className="text-center"
               >
                 <h3 className="text-[#E8B4B8] text-lg font-medium mb-6">
@@ -198,7 +200,7 @@ const HomePage = () => {
                       key={skillIndex}
                       initial={{ opacity: 0, scale: 0.8 }}
                       animate={section2InView ? { opacity: 1, scale: 1 } : {}}
-                      transition={{ duration: 0.4, delay: categoryIndex * 0.15 + skillIndex * 0.05 }}
+                      transition={{ duration: 0.2, delay: categoryIndex * 0.01 + skillIndex * 0.01 }}
                       whileHover={{ scale: 1.1, backgroundColor: '#E8B4B8', color: '#0A0A0A' }}
                       className="px-6 py-3 bg-[#2D2D2D] text-white rounded-full text-base font-medium cursor-pointer transition-all duration-300"
                     >
