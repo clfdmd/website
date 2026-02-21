@@ -18,6 +18,14 @@ const Footer = () => {
               >
                 <i className="ri-mail-line text-lg"></i>
               </a>
+
+              <a
+                href="../../../materials/Yuxin_Zheng_CV.pdf"
+                download
+                className="w-10 h-10 rounded-full border border-white/30 flex items-center justify-center hover:bg-[#E8B4B8] hover:border-[#E8B4B8] transition-all duration-300 cursor-pointer font-bold text-sm"
+              >
+                CV
+              </a>
             </div>
           </div>
 

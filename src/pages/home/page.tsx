@@ -3,7 +3,9 @@ import { motion, useScroll, useTransform, useInView } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import Navbar from '../../components/feature/Navbar';
 import Footer from '../../components/feature/Footer';
-import LiquidBackground from '../../components/feature/LiquidBackground';
+import LiquidEther from '../../components/LiquidEther';
+import VariableProximity from '../../components/VariableProximity';
+import FuzzyText from '../../components/FuzzyText';
 
 const HomePage = () => {
   const containerRef = useRef(null);
@@ -51,47 +53,112 @@ const HomePage = () => {
       >
         {/* 液体背景 */}
         
-        <div className="absolute inset-0" style={{ pointerEvents: 'all' }}>
-          <LiquidBackground mouseForce={25} />
+        {/* Background Layers */}
+        <div className="absolute inset-0 z-0">
+        <div style={{ width: '100%', height: '100%', position: 'relative' }}>
+          <LiquidEther />
+        </div>
         </div>
         
 
         {/* 暗色叠加层增强对比度 */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/40" />
-
+    <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/40 pointer-events-none" />
+          
         {/* Main Content */}
         <motion.div className="relative z-10 text-center px-8" style={{ scale: heroScale }}>
-          <motion.h1
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.5 }}
-            className="text-8xl font-bold mb-6 tracking-tight text-white hover:tracking-wide transition-all duration-500 cursor-default"
-            style={{ textShadow: '0 4px 30px rgba(0, 0, 0, 0.5), 0 0 60px rgba(232, 180, 184, 0.3)' }}
+  {/* YUXIN ZHENG */}
+  <motion.div className="relative z-10 text-center px-8" style={{ scale: heroScale }}>
+    {/* 统一动画参数 */}
+    <div
+    ref={containerRef}
+    style={{
+      position: 'relative',
+      width: '100%',
+      textAlign: 'center'
+    }}
+  >
+    {[{
+        content: (
+          <FuzzyText
+            baseIntensity={0.05}
+            hoverIntensity={0.3}
+            fontSize="12rem"
+            fontWeight={400}
+            fontFamily="MyCustomFont"
+            color="rgb(255, 255, 255)"
           >
             YUXIN ZHENG
-          </motion.h1>
-
-          <motion.p
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.7 }}
-            className="text-xl mb-4 tracking-[0.2em] text-white/95 hover:tracking-[0.3em] transition-all duration-500 cursor-default"
-            style={{ textShadow: '0 2px 20px rgba(0, 0, 0, 0.5)' }}
+          </FuzzyText>
+        ),
+        delay: 0.5,
+        marginBottom: '4.5rem' // 上面和第二句话的间距
+      },
+      {
+        content: (
+          <p
+            className="text-3xl tracking-[0.10em] text-white/95 hover:tracking-[0.2em] transition-all duration-500 cursor-default"
+            style={{ textShadow: '0 2px 20px rgba(0,0,0,0.5)' }}
           >
             Undergraduate Student at Communication University of China
-          </motion.p>
-
-          <motion.p
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.9 }}
-            className="text-lg text-white/85 max-w-2xl mx-auto leading-relaxed 
-              hover:text-[#E8B4B8] transition-colors duration-500 cursor-default"
-            style={{ textShadow: '0 2px 15px rgba(0, 0, 0, 0.4)' }}
+          </p>
+        ),
+        delay: 0.7,
+        marginBottom: '3rem' // 第二句话和第三段的间距
+      },
+      {
+        content: (
+          <div
+            style={{
+              maxWidth: '1200px',
+              margin: '0 auto',
+              display: 'flex',
+              flexDirection: 'column',
+              rowGap: '0.3rem',
+              textAlign: 'center'
+            }}
           >
-            Exploring the intersection of technology and creativity through embodied interaction, immersive media systems, and intelligent broadcasting.
-          </motion.p>
-        </motion.div>
+            <VariableProximity
+              label="Exploring the intersection of technology and creativity through embodied interaction,"
+              className="variable-proximity-demo"
+              fromFontVariationSettings="'wght' 600, 'opsz' 9"
+              toFontVariationSettings="'wght' 1000, 'opsz' 40"
+              containerRef={containerRef}
+              radius={100}
+              falloff="linear"
+            />
+            <VariableProximity
+              label="immersive media systems, and intelligent broadcasting."
+              className="variable-proximity-demo"
+              fromFontVariationSettings="'wght' 600, 'opsz' 9"
+              toFontVariationSettings="'wght' 1000, 'opsz' 40"
+              containerRef={containerRef}
+              radius={100}
+              falloff="linear"
+            />
+          </div>
+        ),
+        delay: 0.9,
+        marginBottom: 0
+      }
+    ].map((item, idx) => (
+      <motion.div
+        key={idx}
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{
+          type: 'tween',
+          ease: 'easeOut',
+          duration: 1,
+          delay: item.delay
+        }}
+        style={{ marginBottom: item.marginBottom }}
+      >
+        {item.content}
+      </motion.div>
+    ))}
+  </div>
+  </motion.div>
+</motion.div>
 
         {/* Scroll Indicator */}
         <motion.div
@@ -103,7 +170,7 @@ const HomePage = () => {
           <motion.span
             className="text-white/70 text-sm tracking-widest uppercase"
             style={{ textShadow: '0 2px 10px rgba(0, 0, 0, 0.5)' }}
-            whileHover={{ color: '#E8B4B8', scale: 1.1 }}
+            whileHover={{ color: '#e8b4b8', scale: 1.1 }}
             transition={{ duration: 0.3 }}
           >
             Scroll to explore
@@ -112,7 +179,7 @@ const HomePage = () => {
             className="w-6 h-10 border-2 border-white/60 rounded-full flex justify-center pt-2"
             animate={{ y: [0, 5, 0] }}
             transition={{ duration: 1.5, repeat: Infinity }}
-            whileHover={{ borderColor: '#E8B4B8', scale: 1.1 }}
+            whileHover={{ borderColor: 'E8B4B8#', scale: 1.1 }}
           >
             <motion.div
               className="w-1.5 h-1.5 bg-white rounded-full"

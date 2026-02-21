@@ -1,0 +1,7 @@
+/* src/VariableProximity.css 或者 src/index.css */
+@font-face {
+  font-family: 'MyCustomFont';
+  src: url('../font/FZQuHJW.TTF') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
