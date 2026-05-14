@@ -1,5 +1,28 @@
 
 export const projectsData = [
+  {
+    id: 'drifting',
+    title: 'Drifting in the Virtual',
+    category: 'Hybrid Interactions',
+    subtitle: 'Embodied Intelligence & Somatic Interaction',
+    tools: ['Robotic Arm', 'Arduino','TouchDesigner'],
+    thumbnail: 'https://res.cloudinary.com/dxny54aw4/image/upload/v1778766882/%E4%BA%A4%E4%BA%92%E6%BC%94%E7%A4%BA%E7%89%88.mp4_000139.336_hrddo9.png',
+    year: '2023',
+    duration: '3 months',
+    content: {
+      overview: 'Drifting in the Virtual presents three scenarios centered on the shared action of grasping and placing, each demonstrating a different mode of interaction. It progresses from the most direct form of manual grasping, to the use of external tools, and finally to controlling a robotic arm through IMU and EMG sensors. Together, these three scenarios represent evolving relationships between the body and tools, with the level of interaction complexity increasing step by step.',
+      images: [
+        'https://res.cloudinary.com/dxny54aw4/image/upload/v1778766932/B005207.MP4_000005.270_a6675i.png',
+        'https://res.cloudinary.com/dxny54aw4/image/upload/v1778766931/B005203.MP4_000037.829_fle4dc.png',
+        'https://res.cloudinary.com/dxny54aw4/image/upload/v1778766929/B005208.MP4_000010.354_fi212e.png',
+        'https://res.cloudinary.com/dxny54aw4/image/upload/v1778766882/%E4%BA%A4%E4%BA%92%E6%BC%94%E7%A4%BA%E7%89%88.mp4_000139.336_hrddo9.png',
+        'https://res.cloudinary.com/dxny54aw4/image/upload/v1778767041/%E4%BA%A4%E4%BA%92%E6%BC%94%E7%A4%BA%E7%89%88.mp4_000207.375_ub0jeq.png',
+      ],
+      video:[
+        'https://res.cloudinary.com/dxny54aw4/video/upload/v1778766678/DriftingintheVirtual_rjdkvg.mp4',
+      ],
+    },
+  },
   // Digital Interactions
   {
     id: 'a-hand-of-god',
@@ -205,8 +228,8 @@ export const projectsData = [
 ];
 
 export const categories = [
-  { id: 'all', name: 'All', count: 10 },
+  { id: 'all', name: 'All', count: 11 },
   { id: 'digital', name: 'Digital Interactions', count: 5 },
-  { id: 'hybrid', name: 'Hybrid Interactions', count: 2 },
+  { id: 'hybrid', name: 'Hybrid Interactions', count: 3 },
   { id: 'visual', name: 'Visual Design', count: 3 },
 ];
