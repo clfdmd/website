@@ -113,9 +113,9 @@ export const projectsData = [
     content: {
       overview: 'Threads into Heritage is a generative media art project that reinterprets cultural heritage through AI-generated 3D forms and TouchDesigner-based visual composition. Inspired by the idea that damaged relics are traces of history waiting to be reimagined, the project uses digital technology to give ancient artifacts a new visual life.\n\nUsing Tripo, we generated 3D models inspired by ancient Chinese relics and selected three vessel-like forms after multiple rounds of experimentation. These models were optimized and imported into TouchDesigner, where they were transformed into dynamic visual compositions combining traditional artifact imagery with contemporary line-based aesthetics.\n\nThe project explores the potential of AI and real-time visual media in cultural heritage innovation, creating a visual atmosphere that is both classical and modern. The work was presented in the 2025 Faculty Submitted Student Work Exhibit organized by the ACM SIGGRAPH Education Committee.',
       images: [
-        'https://res.cloudinary.com/dxny54aw4/image/upload/v1771313249/%E5%9B%BE%E7%89%871_ltkcsr.png',
-        'https://res.cloudinary.com/dxny54aw4/image/upload/v1771313253/%E5%9B%BE%E7%89%873_e6u5rg.png',
-        'https://res.cloudinary.com/dxny54aw4/image/upload/v1771313251/%E5%9B%BE%E7%89%872_olv0fu.png',
+        'https://res.cloudinary.com/dxny54aw4/image/upload/v1771313249/%E5%9B%BE%E7%89%871_ltkcsr.jpg',
+        'https://res.cloudinary.com/dxny54aw4/image/upload/v1771313253/%E5%9B%BE%E7%89%873_e6u5rg.jpg',
+        'https://res.cloudinary.com/dxny54aw4/image/upload/v1771313251/%E5%9B%BE%E7%89%872_olv0fu.jpg',
       ],
       video: ['https://res.cloudinary.com/dxny54aw4/video/upload/v1771313278/final%E5%B1%95%E7%A4%BA_s062gu.mp4'],
     }
