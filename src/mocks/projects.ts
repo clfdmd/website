@@ -105,13 +105,13 @@ export const projectsData = [
     id: 'threads-into-heritage',
     title: 'Threads into Heritage',
     category: 'Digital Interactions',
-    subtitle: 'AI-driven Interactive Art & Cultural Heritage',
+    subtitle: 'AI-assisted Generative Media Art & Cultural Heritage',
     tools: ['TouchDesigner'],
     thumbnail: 'https://res.cloudinary.com/dxny54aw4/image/upload/v1771313251/%E5%9B%BE%E7%89%872_olv0fu.png',
     year: '2024',
     duration: '4 months',
     content: {
-      overview: 'Threads into Heritage is an interactive art project that combines AI-generated visuals with traditional cultural elements. Using TouchDesigner as the primary development platform, the system transforms cultural references into generative visual forms that respond to audience interaction. \n\nThe project explores how AI can participate in the reinterpretation of cultural heritage, positioning computational generation as a contemporary artistic medium rather than a tool for replication.',
+      overview: 'Threads into Heritage is a generative media art project that reinterprets cultural heritage through AI-generated 3D forms and TouchDesigner-based visual composition. Inspired by the idea that damaged relics are traces of history waiting to be reimagined, the project uses digital technology to give ancient artifacts a new visual life.\n\nUsing Tripo, we generated 3D models inspired by ancient Chinese relics and selected three vessel-like forms after multiple rounds of experimentation. These models were optimized and imported into TouchDesigner, where they were transformed into dynamic visual compositions combining traditional artifact imagery with contemporary line-based aesthetics.\n\nThe project explores the potential of AI and real-time visual media in cultural heritage innovation, creating a visual atmosphere that is both classical and modern. The work was presented in the 2025 Faculty Submitted Student Work Exhibit organized by the ACM SIGGRAPH Education Committee.',
       images: [
         'https://res.cloudinary.com/dxny54aw4/image/upload/v1771313249/%E5%9B%BE%E7%89%871_ltkcsr.png',
         'https://res.cloudinary.com/dxny54aw4/image/upload/v1771313253/%E5%9B%BE%E7%89%873_e6u5rg.png',

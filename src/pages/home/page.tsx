@@ -219,10 +219,10 @@ const HomePage = () => {
               <div className="text-[#E8B4B8] text-sm tracking-[0.3em] uppercase mb-6">About Me</div>
               <div className="text-[#E8B4B8] text-[80px] leading-none mb-6 font-serif">"</div>
               <p className="text-[#2D2D2D] text-xl leading-relaxed mb-6">
-                I am an undergraduate student majoring in Digital Media Arts at Communication University of China, with a primary focus on interaction design and interactive media systems.
+                I recently graduated with a bachelor’s degree in Digital Media Arts from Communication University of China, with a primary focus on interaction design and interactive media systems.
               </p>
               <p className="text-[#2D2D2D] text-xl leading-relaxed mb-6">
-              My academic training emphasizes the integration of design and technology, covering interaction design, game systems, AR/VR, AI applications, user interface design, and user experience design. Through coursework and project-based learning, I have developed both visual sensitivity and technical skills, working across programming, interactive system design, and immersive media development.
+              My academic training emphasized the integration of design and technology, covering interaction design, game systems, AR/VR, AI applications, user interface design, and user experience design. Through coursework and project-based learning, I have developed both visual sensitivity and technical skills, working across programming, interactive system design, and immersive media development.
               </p>
               <p className="text-[#2D2D2D] text-xl leading-relaxed mb-8">
                 Alongside my academic work, I have participated extensively in live broadcasting and television production, gaining hands-on experience in multi-camera workflows, camera operation, live directing, and broadcast system coordination. These practices have further shaped my research interests in intelligent broadcasting, embodied interaction, and AI-assisted support for live media production.
