@@ -116,6 +116,8 @@ export const projectsData = [
         'https://res.cloudinary.com/dxny54aw4/image/upload/v1783282674/%E5%9B%BE%E7%89%871_ltkcsr.jpg',
         'https://res.cloudinary.com/dxny54aw4/image/upload/v1783282661/%E5%9B%BE%E7%89%873_e6u5rg.jpg',
         'https://res.cloudinary.com/dxny54aw4/image/upload/v1783282686/%E5%9B%BE%E7%89%872_olv0fu.jpg',
+        'https://res.cloudinary.com/dxny54aw4/image/upload/v1783285252/siggraph_tnujtt.png',
+
       ],
       video: ['https://res.cloudinary.com/dxny54aw4/video/upload/v1771313278/final%E5%B1%95%E7%A4%BA_s062gu.mp4'],
     }
